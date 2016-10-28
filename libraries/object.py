@@ -56,7 +56,7 @@ class object:
                (j < self.position[1] + self.size[1])
 
 
-    def testCollision(obj):
+    def testCollision(self, obj):
 
         if obj.collidable and self.collidable:
 
