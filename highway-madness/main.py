@@ -21,7 +21,7 @@ def spawnVehicle(objectDict, level):
     vehicleSize = vehicleSizes[vehicleType]
 
     # Search for available positions to spawn ths vehicle
-    availablePositions = [i for i in range(screenSize[1])]
+    availablePositions = [i for i in range(screen.screenSize[1])]
 
     if vehicleSize[1] > 1:
         availablePositions.pop()
@@ -140,7 +140,7 @@ while(True):
 
                 obj.setPosition([pi, pj])
 
-                if obj.position[0] >= screenSize[0]:
+                if obj.position[0] >= screen.screenSize[0]:
                     deletions.append(name)
 
         for name in deletions:
