@@ -1,3 +1,5 @@
+from screen import standardBrightness
+
 # Object class handles game objects that are rendered on the display
 
 class object:
