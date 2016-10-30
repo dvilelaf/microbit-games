@@ -116,8 +116,8 @@ while(True):
         randNumber = random.randint(0, 3*fps)  # Approx every 3 seconds
 
         if randNumber is 0:
-            spawnVehicle(objectDict, level)
-            score += 1
+            if spawnVehicle(objectDict, level): 
+                score += 1
 
         # Render the scene
         scr.renderObjectDict(objectDict)
