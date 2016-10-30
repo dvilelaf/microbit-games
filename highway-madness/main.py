@@ -66,8 +66,8 @@ def spawnVehicle(objectDict, level):
         # Spawn the vehicle. The speed depends on the level
         objectDict[vehicleType + str(random.randint(0, 100))] = object.object(size=vehicleSize,
                                                                               position=vehiclePosition,
-                                                                              speed=[random.randint(0, level), 0])
 
+                                                                              speed=[random.randint(1, level), 0])
     return slotFound
 
 
