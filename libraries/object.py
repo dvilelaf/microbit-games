@@ -60,9 +60,9 @@ class object:
 
         if obj.collidable and self.collidable:
 
-            for i in range(obj.position[0], obj.position[0] + obj.size[0]):
-                for j in range(obj.position[1], obj.position[1] + obj.size[1]):
-                    if self.pointInsideObject(i, j):
+            for i in range(int(obj.position[0]), int(obj.position[0]) + obj.size[0]):
+                for j in range(int(obj.position[1]), int(obj.position[1]) + obj.size[1]):
+                    if self.isPointInside(i, j):
                         return True
 
         return False
