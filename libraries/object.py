@@ -48,7 +48,7 @@ class object:
         self.brightness = brightness
 
 
-    def isPointInside(i, j):
+    def isPointInside(self, i, j):
     
         return (i >= self.position[0]) and \
                (i < self.position[0] + self.size[0]) and \
