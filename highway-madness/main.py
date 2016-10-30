@@ -6,7 +6,7 @@ import animations
 
 # Frames per second and frame duration
 fps = 10
-frameDuration = 1 / fps  # seconds
+frameDuration = 1.0 / fps  # seconds
 
 # Vehicle sizes
 vehicleSizes = {'bike': [2, 1], 'car': [2, 2], 'van': [3, 2], 'truck': [4, 2]}
