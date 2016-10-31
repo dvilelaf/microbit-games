@@ -66,25 +66,8 @@ def spawnVehicle(objectDict, level):
         # Spawn the vehicle. The speed depends on the level
         objectDict[vehicleType + str(random.randint(0, 100))] = object.object(size=vehicleSize,
                                                                               position=vehiclePosition,
-
                                                                               speed=[random.randint(1, level), 0])
     return slotFound
-
-
-###############################################################################
-def testCollisions(objectDict):
-
-    player = objectDict['player']
-
-    for name, obj in objectDict.items():
-        if name is not 'player' and obj.collidable:
-
-            for i in range(player.position[0], player.position[0] + player.size[0]):
-                for j in range(player.position[1], player.position[1] + player.size[1]):
-                    if pointInsideObject(i, j, obj):
-                        return True
-
-    return False
 
 
 ###############################################################################
