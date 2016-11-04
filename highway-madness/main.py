@@ -1,160 +1,85 @@
+from microbit import *
 import random
-import screen
-import object
-import animations
 
+# Position (i,j) and speed indexes
+pi = 0
+pj = 1
+s  = 2
 
-# Frames per second and frame duration
-fps = 10
-frameDuration = 1.0 / fps  # seconds
-
-# Vehicle sizes
-vehicleSizes = {'bike': [2, 1], 'car': [2, 2], 'van': [3, 2], 'truck': [4, 2]}
-
-
-###############################################################################
-
-def spawnVehicle(objectDict, level):
-
-    # Select a random vehicle type
-    vehicleType = random.choice(list(vehicleSizes.keys()))
-    vehicleSize = vehicleSizes[vehicleType]
-
-    # Search for available positions to spawn ths vehicle
-    availablePositions = [i for i in range(screen.screenSize[1])]
-
-    if vehicleSize[1] > 1:
-        availablePositions.pop()
-
-    for name, obj in objectDict.items():
-        if name is not 'player' and obj.collidable:
-
-            for j in range(obj.size[1]):
-
-                pos = int(obj.position[1] // 1) + j
-
-                if pos in availablePositions:
-                    availablePositions.remove(pos)
-
-    # Find a slot with enough room for the vehicle
-
-    indices = [i for i in range(len(availablePositions))]
-
-    slotFound = False
-    tries = 0
-    maxTries = len(availablePositions)
-
-    while(not slotFound and tries < maxTries):
-
-        slot = random.choice(indices)
-
-        for j in range(vehicleSize[1]):
-
-            if (availablePositions[slot] + j) not in availablePositions:
-                indices.remove(slot)
-                break
-
-            if (j + 1) is vehicleSize[1]:
-                slotFound = True
-
-        tries += 1
-
-    if slotFound:
-
-        vehiclePosition = [-3, availablePositions[slot]]
-
-        # Spawn the vehicle. The speed depends on the level
-        objectDict[vehicleType + str(random.randint(0, 100))] = object.object(size=vehicleSize,
-                                                                              position=vehiclePosition,
-                                                                              speed=[random.randint(1, level), 0])
-    return slotFound
-
-
-###############################################################################
-# MAIN CODE
-
-# Create the screen object
-scr = screen.screen()
-
-level = 1
+# Player, enemies and score initialization
+player = [3.0, 2.0, 0.0]
+enemies = []
 score = 0
 
 # Main loop
-while(True):
+while True:
 
-    # New level
-    objectDict = {'player': object.object(size=vehicleSizes['bike'], position=[3, 2]), }
-    crash = False
-    win = False
-    frame = 1
-    speed = 5 + level
-    animations.levelStart(level)
+    # Read input and update player speed
+    player[s] = 0.0
 
-    # Level loop
-    while(not crash and not win):
+    if button_a.is_pressed():
+        player[s] = -0.2
 
-        tstart = running_time()
+    if button_b.is_pressed():
+        player[s] = 0.2
 
-        # Create random objects
-        randNumber = random.randint(0, 3*fps)  # Approx every 3 seconds
+    # Update player position
+    player[pj] += player[s]
 
-        if randNumber is 0:
-            if spawnVehicle(objectDict, level): 
-                score += 1
+    # Keep player inside the screen
+    if player[pj] < 0:
+        player[pj] = 0
 
-        # Render the scene
-        scr.renderObjectDict(objectDict)
+    if player[pj] > 4:
+        player[pj] = 4
 
-        # Read input and update player's position
-        if button_a.is_pressed():
-            objectDict['player'].moveLeft()
+    # Create random enemies
+    if random.randint(0, 25) is 0 and len(enemies) < 2:
+        enemies.append([-2.0, random.randint(0, 3), 0.1])
 
-        if button_b.is_pressed():
-            objectDict['player'].moveRight()
+    # Update enemy positions and delete if out of scene
+    deletions = []
 
-        # Update vehicle positions. Delete if out of scene
-        deletions = []
+    for i in range(len(enemies)):
 
-        for name, obj in objectDict.items():
-            if name is not 'player':
+        enemies[i][pi] += enemies[i][s]
 
-                pi = obj.position[0] + obj.speed[0] * frameDuration
-                pj = obj.position[1] + obj.speed[1] * frameDuration
+        if enemies[i][pi] > 5:
+            deletions.append(i)
 
-                obj.setPosition([pi, pj])
+    for i in deletions:
+        enemies.pop(i)
+        score += 1
 
-                if obj.position[0] >= screen.screenSize[0]:
-                    deletions.append(name)
+    # Check collisions
+    for enemy in enemies:
+        if (player[pi] >= enemy[pi])     and \
+           (player[pi] <  enemy[pi] + 1) and \
+           (player[pj] >= enemy[pj])     and \
+           (player[pj] <  enemy[pj] + 2):
 
-        for name in deletions:
-            del objectDict[name]
+           display.scroll('CRASH!')
+           display.scroll('Score: ' + str(score))
+           reset()
 
-        # Check for collisions
-        for name, obj in objectDict.items():
-            if name is not 'player':
-                crash = objectDict['player'].testCollision(obj)
+    # Update pixels
+    pixels = [[0 for i in range(5)] for j in range(5)]
 
-                if crash:
-                    break
+    pixels[int(player[pi])    ][int(player[pj])] = 5
+    pixels[int(player[pi]) + 1][int(player[pj])] = 5
 
-        # Check for win
-        if frame is 30 * fps:  # 30 seconds per level
-            win = True
+    for enemy in enemies:
+        for i in range(2):
+            for j in range(2):
+                y = i + int(enemy[pi])
+                x = j + int(enemy[pj])
 
-        # Play animations if needed
-        if crash:
-            animations.crash()
-            animations.score(score)
-            reset()
+                if x >= 0 and x<5 and y >=0 and y < 5:
+                    pixels[y][x] = 5
 
-        if win:
-            animations.win()
-            animations.score(score)
-            level += 1
+    # Render
+    for i in range(5):
+        for j in range(5):
+            display.set_pixel(j, i, pixels[i][j])
 
-        frame += 1
-
-        # Sleep to keep the framerate
-        if (running_time() - tstart) < frameDuration:
-            sleep(frameDuration - (running_time() - tstart))
 
