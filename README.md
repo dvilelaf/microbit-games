@@ -14,13 +14,13 @@ Use the provided installer scripts
 
 1. First, install the neccesary utils
 
-```
-sudo apt-get install pip
-pip install microfs
-```
+    ```
+    sudo apt-get install pip
+    pip install microfs
+    ```
 
 2. Then, install a game using its corresponding install script
 
-```
-sh mimic/install.sh
-```
+    ```
+    sh mimic/install.sh
+    ```
