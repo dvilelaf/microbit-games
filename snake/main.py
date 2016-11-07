@@ -8,6 +8,10 @@ speed = [0,1]
 food = [random.randint(0,4), random.randint(0,4)]
 score = 0
 
+# Buttons initialization
+releasedA = True
+releasedB = True
+
 # Images
 wrong = Image("50005:05050:00500:05050:50005")
 numbers = ["05550:00050:05550:00050:05550",
@@ -28,16 +32,18 @@ while alive:
 
     # Check user input
     if button_a.is_pressed():
-        speed = [-speed[1], speed[0]]
-        # Wait for button release
-        while button_a.is_pressed():
-            1
+        if releasedA:
+            speed = [-speed[1], speed[0]]
+            releasedA = False
+    else:
+        releasedA = True
 
     if button_b.is_pressed():
-        speed = [speed[1], -speed[0]]
-        # Wait for button release
-        while button_b.is_pressed():
-            1
+        if releasedB:
+            speed = [speed[1], -speed[0]]
+            releasedB = False
+    else:
+        releasedB = True
 
     # Update position
     if time > 1.0:
