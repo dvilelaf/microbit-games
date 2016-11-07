@@ -66,7 +66,9 @@ while alive:
     # Render
     frame = [[0 for i in range(5)] for j in range(5)]
 
-    for point in snake:
+    frame[snake[0][0]][snake[0][1]] = 7
+
+    for point in snake[1:]:
         frame[point[0]][point[1]] = 5
 
     frame[food[0]][food[1]] = 7
