@@ -1,4 +1,4 @@
-# Microbit games and apps
+# BBC Micro::bit games and apps
 A collection of simple games and apps for the bbc micro::bit.
 
 - Highway madness: go fast on your motorbike and dodge all the other vehicles
