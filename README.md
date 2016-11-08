@@ -8,18 +8,18 @@ A collection of simple games and apps for the bbc micro::bit.
 
 # Installation
 ###Method A
-Use mu editor to flash the main scripts to the microbit.
+Connect your micro::bit to the computer and use mu editor to flash the main scripts to the microbit.
 ###Method B
 Use the provided installer scripts
 
-1. First, install the neccesary utils
+1. Install the neccesary utils
 
     ```
     sudo apt-get install pip
     pip install microfs
     ```
 
-2. Then, install a game using its corresponding install script
+2. Connect your micro::bit to the computer, wait a few seconds and install a game by using its corresponding installer script
 
     ```
     sh mimic/install.sh
