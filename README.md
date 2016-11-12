@@ -15,7 +15,7 @@ Use the provided installer scripts
 1. Install the neccesary utils
 
     ```
-    sudo apt-get install pip
+    sudo apt-get install python-pip
     pip install microfs
     ```
 
