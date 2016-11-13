@@ -24,3 +24,9 @@ Use the provided installer scripts
     ```
     sh mimic/install.sh
     ```
+
+3. Add your *username* to the dialout group
+
+    ```
+    sudo usermod -a -G dialout <username>
+    ```
