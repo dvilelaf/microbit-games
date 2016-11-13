@@ -34,6 +34,6 @@ Use the provided installer scripts
 4. Connect your micro::bit to the computer, wait a few seconds and install a game by using the installer script
 
     ```
-    ./install.sh gamename
+    ./install.sh <gamename>
     ```
 
