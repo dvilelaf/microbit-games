@@ -19,14 +19,15 @@ Use the provided installer scripts
     pip install microfs
     ```
 
-2. Connect your micro::bit to the computer, wait a few seconds and install a game by using its corresponding installer script
+2. Add your *username* to the dialout group
+
+    ```
+    sudo usermod -a -G dialout <username>
+    ```
+
+3. Connect your micro::bit to the computer, wait a few seconds and install a game by using its corresponding installer script
 
     ```
     sh mimic/install.sh
     ```
 
-3. Add your *username* to the dialout group
-
-    ```
-    sudo usermod -a -G dialout <username>
-    ```
