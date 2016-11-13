@@ -25,9 +25,15 @@ Use the provided installer scripts
     sudo usermod -a -G dialout <username>
     ```
 
-3. Connect your micro::bit to the computer, wait a few seconds and install a game by using its corresponding installer script
+3. Give execution permissions to installer script
 
     ```
-    sh mimic/install.sh
+    sudo chmod 764 install.sh
+    ```
+
+4. Connect your micro::bit to the computer, wait a few seconds and install a game by using the installer script
+
+    ```
+    ./install.sh gamename
     ```
 
