@@ -4,6 +4,7 @@ A collection of simple games and apps for the bbc micro::bit.
 - Highway madness: go fast on your motorbike and dodge all the other vehicles
 - Snake: the classic snake game
 - Mimic: a simon-like game
+- Alien invasion: a space invaders-like game
 
 
 # Installation
