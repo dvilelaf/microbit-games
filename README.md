@@ -13,7 +13,7 @@ Connect your micro::bit to the computer and use [mu editor](http://codewith.mu/)
 ###Method B
 Use the provided installer scripts
 
-1. Install the neccesary utils
+1. Install the required utils
 
     ```
     sudo apt-get install python-pip
